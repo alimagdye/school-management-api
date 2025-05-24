@@ -11,6 +11,7 @@ A School Management API allows adding schools, getting the nearest school to far
 
 ## API Link
 https://diligent-equinox-edge.glitch.me
+Note: API is deployed on glitch which inactives it after 5 minutes, so the API link takes some seconds at the first request only every 5 minutes.
 
 ## Postman Collection
 https://documenter.getpostman.com/view/43546600/2sB2qcBLRV
