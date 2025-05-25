@@ -7,22 +7,39 @@ const listSchools = async function (req, res) {
     const latitude = sanitizeHtml(req.query.latitude);
     const longitude = sanitizeHtml(req.query.longitude);
 
+    // first way:
+    // const query = `
+    //     SELECT *
+    //         FROM schools
+    // `;
+    // const [rows] = await pool.execute(query); // array of schools objects
+    // if (rows.length === 0) {
+    //   return res.status(404).json({ message: "no schools found" });
+    // }
+
+    // res.status(200).json({
+    //   message: "schools listed successfully",
+    //   data: rows.sort(
+    //     (a, b) =>
+    //       calculateDistance(latitude, longitude, a.latitude, a.longitude) -
+    //       calculateDistance(latitude, longitude, b.latitude, b.longitude)
+    //   ), // sort by distance between the school and the user distance, ascending order
+    // });
+
+    // second way:
     const query = `
-        SELECT *
+        SELECT *, calculate_distance_km(?, ?, latitude, longitude) AS distance
             FROM schools
+                ORDER BY distance ASC;
     `;
-    const [rows] = await pool.execute(query); // array of schools objects
+    const [rows] = await pool.execute(query);
     if (rows.length === 0) {
       return res.status(404).json({ message: "no schools found" });
     }
 
     res.status(200).json({
       message: "schools listed successfully",
-      data: rows.sort(
-        (a, b) =>
-          calculateDistance(latitude, longitude, a.latitude, a.longitude) -
-          calculateDistance(latitude, longitude, b.latitude, b.longitude)
-      ), // sort by distance between the school and the user distance, ascending order
+      data: rows,
     });
   } catch (error) {
     console.error("error listing schools:", error);
