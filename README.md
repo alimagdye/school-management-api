@@ -21,7 +21,7 @@ https://documenter.getpostman.com/view/43546600/2sB2qcBLRV
 https://drive.google.com/file/d/1FQ6d37F4XhtpjUPt3QishKOCQpvAKgb2/view?usp=sharing
 
 ## Improvement
-We could also create a stored function in MySQL:
+I create a stored function in MySQL instead of JS function to be faster, dosen't sort in the memory:
 ```
 DELIMITER //
 
