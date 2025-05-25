@@ -32,7 +32,10 @@ const listSchools = async function (req, res) {
             FROM schools
                 ORDER BY distance ASC;
     `;
-    const [rows] = await pool.execute(query);
+    const [rows] = await pool.execute(query, [
+      latitude,
+      longitude
+    ]);
     if (rows.length === 0) {
       return res.status(404).json({ message: "no schools found" });
     }
